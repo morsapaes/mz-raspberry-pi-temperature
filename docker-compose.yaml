@@ -1,0 +1,45 @@
+version: '3.7'
+services:
+  materialized:
+    image: materialize/materialized:v0.9.13
+    container_name: materialized
+    init: true
+    command: -w1 --disable-telemetry --experimental
+    ports:
+      - 6875:6875
+  mzcli:
+    image: materialize/cli
+    container_name: mzcli
+  postgres:
+    build: ./postgres-image
+    container_name: postgres
+    ports:
+     - 5432:5432
+    environment:
+     - POSTGRES_USER=postgres
+     - POSTGRES_PASSWORD=postgres
+     - POSTGRES_DB=postgres
+    volumes:
+     - ${PWD}/postgres-image:/docker-entrypoint-initdb.d
+  metabase:
+    image: materialize/metabase:v0.0.5
+    container_name: metabase
+    depends_on:
+       - materialized
+    ports:
+      - 3030:3000
+  tempapi:
+    build: temperature_api_mock
+    container_name: tempapi
+    ports:
+     - 3333:3333
+    environment:
+     - PG_USER=postgres
+     - PG_PASSWORD=postgres
+     - PG_HOST=postgres
+     - PG_DB_NAME=postgres
+    depends_on: [postgres]
+  raspberry-mock:
+    build: raspberry_mock
+    container_name: raspberry-mock
+    depends_on: [postgres,tempapi]
