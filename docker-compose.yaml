@@ -34,10 +34,19 @@ services:
     ports:
      - 3333:3333
     environment:
+     - DB_CONNECTION=pg
+     - PG_PORT=6875
      - PG_USER=postgres
      - PG_PASSWORD=postgres
      - PG_HOST=postgres
      - PG_DB_NAME=postgres
+     - PORT=3333
+     - HOST=0.0.0.0
+     - NODE_ENV=development
+     - APP_KEY=OrWQRLR9WkVAKZa6G8CdFy796VW9NDxi
+     - DRIVE_DISK=local
+     - SESSION_DRIVER=cookie
+     - CACHE_VIEWS=false
     depends_on: [postgres]
   raspberry-mock:
     build: raspberry_mock
