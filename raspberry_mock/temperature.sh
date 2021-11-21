@@ -29,9 +29,9 @@ while [[ true ]] ; do
         echo ${NAME}-${i},$(timestamp),$(temperature)
 
         # Save the data into a PostgreSQL
-        curl -X GET "http://tempapi:3333/temperature?name=${NAME}-${i}&timestamp=$(timestamp)&temperature=$(temperature)"
+        curl -X GET "http://tempapi:3333/temperature?name=${NAME}-${i}&timestamp="$(timestamp)"&temperature=$(temperature)"
 
-        sleep 0.05
+        sleep 0.04
 
     done
     sleep 1
