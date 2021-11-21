@@ -17,7 +17,7 @@ function temperature(){
 
 # Get the current time
 function timestamp(){
-    time=$(date +'%F %T')
+    time=$(date +%s)
     echo $time
 }
 
@@ -29,7 +29,7 @@ while [[ true ]] ; do
         echo ${NAME}-${i},$(timestamp),$(temperature)
 
         # Save the data into a PostgreSQL
-        curl -X GET "http://tempapi:3333/temperature?name=${NAME}-${i}&timestamp="$(timestamp)"&temperature=$(temperature)"
+        curl -X GET "http://tempapi:3333/temperature?name=${NAME}-${i}&timestamp=$(timestamp)&temperature=$(temperature)"
 
         sleep 0.04
 
