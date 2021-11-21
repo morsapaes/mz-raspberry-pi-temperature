@@ -17,7 +17,7 @@ function temperature(){
 
 # Get the current time
 function timestamp(){
-    time=$(date +%Y%m%d%H%M%S)
+    time=$(date +'%F %T')
     echo $time
 }
 

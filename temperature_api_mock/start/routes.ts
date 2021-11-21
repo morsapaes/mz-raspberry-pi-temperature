@@ -29,7 +29,7 @@ Route.get('/temperature', async ({ request }) => {
     name = request.qs().name;
   }
 
-  let timestamp = '20211120232613';
+  let timestamp = '2021-11-21 19:52:49';
   if (request.qs().timestamp != null) {
     timestamp = request.qs().timestamp;
   }
