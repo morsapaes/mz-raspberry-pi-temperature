@@ -161,7 +161,7 @@ Time: 2.984 ms
 Example 3: Sort by temp average
 
 ```sql
-CREATE MATERIALIZED VIEW avarage AS SELECT name::text, avg(temperature::float) AS temp FROM sensors GROUP BY (name);
+CREATE MATERIALIZED VIEW average AS SELECT name::text, avg(temperature::float) AS temp FROM sensors GROUP BY (name);
 ```
 
 Query the `average` view:
@@ -195,7 +195,7 @@ Make sure to select Materialize as the source of the data.
 
 Once ready you will be able to visualize your data just as you would with a standard PostgreSQL database.
 
-![Metabase](https://user-images.githubusercontent.com/21223421/142744183-11a90f6c-afab-4344-b331-fed1d74a937a.png)
+![Metabase](https://user-images.githubusercontent.com/21223421/142780602-043f36c7-f279-4dc7-8853-99ddb31b452f.png)
 
 ## Stopping the demo
 
