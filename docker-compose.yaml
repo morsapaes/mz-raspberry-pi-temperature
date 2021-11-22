@@ -10,6 +10,27 @@ services:
   mzcli:
     image: materialize/cli
     container_name: mzcli
+  redpanda:
+    image: docker.vectorized.io/vectorized/redpanda:v21.9.5
+    container_name: redpanda
+    command:
+     - redpanda start
+     - --overprovisioned
+     - --smp 1
+     - --memory 1G
+     - --reserve-memory 0M
+     - --node-id 0
+     - --check=false
+     - --kafka-addr 0.0.0.0:9092
+     - --advertise-kafka-addr redpanda:9092
+     - --pandaproxy-addr 0.0.0.0:8082
+     - --advertise-pandaproxy-addr redpanda:8082
+     - --set redpanda.enable_transactions=true
+     - --set redpanda.enable_idempotence=true
+    ports:
+     - 9092:9092
+     - 8081:8081
+     - 8082:8082
   postgres:
     build: ./postgres-image
     container_name: postgres
@@ -51,4 +72,4 @@ services:
   raspberry-mock:
     build: raspberry_mock
     container_name: raspberry-mock
-    depends_on: [postgres,tempapi]
+    depends_on: [postgres,tempapi,redpanda]

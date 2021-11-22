@@ -11,7 +11,7 @@ fi
 
 # Generate a random temperature number
 function temperature(){
-    temp=$(seq 40.1 78.1 | sort -R | head -n 1)
+    temp=$(seq 40.1 83.1 | sort -R | head -n 1)
     echo $temp
 }
 
