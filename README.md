@@ -99,7 +99,6 @@ A quick rundown of the above statement:
 * `PUBLICATION`: The PostgreSQL publication, containing the tables to be streamed to Materialize.
 
 
-
 ### Create a view:
 
 Once we've created the PostgreSQL source, in order to be able to query the PostgreSQL tables, we would need to create views that represent the upstream publication’s original tables. In our case, we only have one table called `sensors` so the statement that we would need to run is:
@@ -114,9 +113,23 @@ To see the available views run:
 SHOW FULL VIEWS;
 ```
 
+Once that is done, you can query the new views directly:
+
+```sql
+SELECT * FROM sensors
+```
+
+Next, let's go ahead and create a few more views.
+
 ### Creating more materialized views
 
-Example 1:
+Before, we start let's enable timing so we could actually see how long it takes for each statement to be executed:
+
+```sql
+\timing
+```
+
+* Example 1: Create a materialized view to show the total number of sensors data:
 
 ```sql
 CREATE MATERIALIZED VIEW mz_count AS SELECT count(*) FROM sensors;
@@ -125,12 +138,13 @@ CREATE MATERIALIZED VIEW mz_count AS SELECT count(*) FROM sensors;
 Querying the `mz_count` view:
 
 ```
-\timing
-
 SELECT * FROM mz_count;
+```
 
-// Output
- count 
+Output:
+
+```sql
+ count
 -------
  34565
 (1 row)
@@ -138,7 +152,7 @@ SELECT * FROM mz_count;
 Time: 2.299 ms
 ```
 
-Example 2: Average temperature of all sensors
+* Example 2: Create a view to show the average temperature of all sensors:
 
 ```sql
 CREATE MATERIALIZED VIEW mz_total_avg AS SELECT avg(temperature::float) FROM sensors;
@@ -146,10 +160,13 @@ CREATE MATERIALIZED VIEW mz_total_avg AS SELECT avg(temperature::float) FROM sen
 
 Query the `mz_total_avg`:
 
-```
+```sql
 SELECT * FROM mz_total_avg;
+```
 
-// Output:
+Output:
+
+```sql
         avg
 -------------------
  59.02989081226408
@@ -158,7 +175,7 @@ SELECT * FROM mz_total_avg;
 Time: 2.984 ms
 ```
 
-Example 3: Sort by temp average
+* Example 3: Create a view to show the average temperature of each separate sensor:
 
 ```sql
 CREATE MATERIALIZED VIEW average AS SELECT name::text, avg(temperature::float) AS temp FROM sensors GROUP BY (name);
@@ -168,8 +185,11 @@ Query the `average` view:
 
 ```sql
 SELECT * FROM average LIMIT 10;
+```
 
-// Output
+Output:
+
+```sql
      name     |        temp
 --------------+--------------------
  raspberry-1  |  58.60756530123859
@@ -186,6 +206,8 @@ SELECT * FROM average LIMIT 10;
 
 Time: 2.353 ms
 ```
+
+Feel free to experiment by creating more materialized views.
 
 ## Metabase
 
@@ -207,7 +229,7 @@ docker-compose down
 
 ## Helpful resources
 
-* `[CREATE SOURCE: PostgreSQL](https://materialize.com/docs/sql/create-source/postgres/)`
-* `[CREATE SOURCE](https://materialize.com/docs/sql/create-source/)`
-* `[CREATE VIEWS](https://materialize.com/docs/sql/create-views)`
-* `[SELECT](https://materialize.com/docs/sql/select)`
+* [`CREATE SOURCE: PostgreSQL`](https://materialize.com/docs/sql/create-source/postgres/)
+* [`CREATE SOURCE`](https://materialize.com/docs/sql/create-source/)
+* [`CREATE VIEWS`](https://materialize.com/docs/sql/create-views)
+* [`SELECT`](https://materialize.com/docs/sql/select)
