@@ -299,7 +299,7 @@ To stop all of the services run:
 docker-compose down
 ```
 
-## Helpful resources
+## Helpful resources:
 
 * [`CREATE SOURCE: PostgreSQL`](https://materialize.com/docs/sql/create-source/postgres/)
 * [`CREATE SOURCE`](https://materialize.com/docs/sql/create-source/)
