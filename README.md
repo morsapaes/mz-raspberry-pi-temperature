@@ -15,7 +15,7 @@ You can follow the steps here on how to install Docker:
 
 ## Overview
 
-In this demo, we’ll look at monitoring the temperature of a set of Raspberry Pi devices and extracting some insights from them and stream the data out to an external source.
+In this demo, we’ll look at monitoring the temperature of a set of Raspberry Pi devices and extracting some insights from them, and stream the data out to an external source.
 
 ### Raspberry Pi Mock
 
@@ -219,7 +219,7 @@ Feel free to experiment by creating more materialized views.
 
 For this Demo we will be using [Redpanda](https://materialize.com/docs/third-party/redpanda/).
 
-Redpanda is a Kafka API-compatible and Materialize can process data from it just as it would processes data from a Kafka sources.
+Redpanda is a Kafka API-compatible and Materialize can process data from it just as it would process data from a Kafka source.
 
 Let's create a materialized view, that will hold all of the devices with an average temperature of more than 60 celsius:
 
@@ -292,7 +292,7 @@ Once ready you will be able to visualize your data just as you would with a stan
 
 ![Metabase](https://user-images.githubusercontent.com/21223421/142780602-043f36c7-f279-4dc7-8853-99ddb31b452f.png)
 
-## Stopping the demo
+## Stopping the Demo
 
 To stop all of the services run:
 
